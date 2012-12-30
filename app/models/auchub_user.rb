@@ -1,4 +1,7 @@
 class AuchubUser < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slugged_userid, :use => :slugged
+
   # Include default devise modules. Others available are:
   # :omniauthable
   devise :database_authenticatable, :registerable, :token_authenticatable,
@@ -16,6 +19,13 @@ class AuchubUser < ActiveRecord::Base
   attr_accessible :email, :encrypted_password, :password_confirmation, 
                   :remember_me, :reset_password_sent_at, :sign_in_count, 
                   :current_sign_in_ip, :last_sign_in_ip, :confirmed_at,
-                  :locked_at, :failed_attemts
+                  :locked_at, :failed_attemts, :id, :slug
 
+  def slugged_userid
+    UUID.new
+  end
+
+  def should_generate_new_friendly_id?
+    new_record?
+  end
 end

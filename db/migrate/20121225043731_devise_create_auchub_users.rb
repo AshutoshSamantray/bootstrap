@@ -1,6 +1,8 @@
 class DeviseCreateAuchubUsers < ActiveRecord::Migration
-  def change
+  def self.up
     create_table(:auchub_users) do |t|
+      t.integer :id, :primary_key => true, :null => false
+
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -33,14 +35,26 @@ class DeviseCreateAuchubUsers < ActiveRecord::Migration
       ## Token authenticatable
       t.string :authentication_token
 
-
+      t.string :slug
       t.timestamps
     end
 
-    add_index :auchub_users, :email,                :unique => true
-    add_index :auchub_users, :reset_password_token, :unique => true
-    add_index :auchub_users, :confirmation_token,   :unique => true
-    add_index :auchub_users, :unlock_token,         :unique => true
-    add_index :auchub_users, :authentication_token, :unique => true
+    add_index :auchub_users, [:email],                :unique => true
+    add_index :auchub_users, [:reset_password_token], :unique => true
+    add_index :auchub_users, [:confirmation_token],   :unique => true
+    add_index :auchub_users, [:unlock_token],         :unique => true
+    add_index :auchub_users, [:authentication_token], :unique => true
+    add_index :auchub_users, [:slug],                 :unique => true
+  end
+
+  def self.down
+
+    remove_index :auchub_users, [:authentication_token]
+    remove_index :auchub_users, [:unlock_token]
+    remove_index :auchub_users, [:confirmation_token]
+    remove_index :auchub_users, [:reset_password_token]
+    remove_index :auchub_users, [:email]
+
+    drop_table :auchub_users
   end
 end

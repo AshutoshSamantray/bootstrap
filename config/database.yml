@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: prod_bootstrap
   pool: 5
-  username: dba
+  username: anand
   password: dba4mysql
   socket: /tmp/mysql.sock

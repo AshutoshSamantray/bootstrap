@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20121226050656) do
   add_index "auchub_users", ["reset_password_token"], :name => "index_auchub_users_on_reset_password_token", :unique => true
   add_index "auchub_users", ["unlock_token"], :name => "index_auchub_users_on_unlock_token", :unique => true
 
-  create_table "auchub_versions", :force => true do |t|
+  create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
     t.integer  "item_id",    :null => false
     t.string   "event",      :null => false
@@ -52,6 +52,6 @@ ActiveRecord::Schema.define(:version => 20121226050656) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "auchub_versions", ["item_type", "item_id"], :name => "index_auchub_versions_on_item_type_and_item_id"
+  add_index "versions", ["item_type", "item_id"], :name => "index_auchub_versions_on_item_type_and_item_id"
 
 end
